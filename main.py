@@ -3,46 +3,26 @@ from machine import Timer
 
 GASANALOG = 0
 ALARMLED = 13
+TIMECHECK = 5000
+LLINDAR_GAS = 480
 
 gasA = machine.ADC(GASANALOG)
 gasLED = machine.Pin(ALARMLED, machine.Pin.OUT)
-class CheckGas():
-    """docstring for checkGas."""
-    def __init__(self, led, sensor, time=5000, level=480):
-        super(CheckGas, self).__init__()
-        self.led = led
+
+def checkGas(sensor, level):
+    value = sensor.read()
+    check = 0
+    if (value>level):
         self.led.high()
-        time.sleep_ms(500)
-        self.led.low()
-        time.sleep_ms(500)
-        self.led.high()
-        time.sleep_ms(500)
-        self.led.low()
-        self.gas = sensor
-        self.timer = Timer(-1)
-        self.level = level
-        self.time = time
-        self.start(self.time)
+        check = 1
+    print(value, check)
+    return check
 
-    def checkGas(self):
-        value = self.gas.read()
-        check = 0
-        if (self.gas.read()>self.level):
-            self.led.high()
-            check = 1
+def gasCheck_start(timer, time, sensor, level):
+    timer.init(period=time, mode=Timer.PERIODIC,
+                    callback=lambda t:self.checkGas(sensor, level))
+def gasCheck_stop(timer):
+    timer.deinit()
 
-        else:
-            self.led.low()
-            check = 0
-
-        print(value, check)
-        return check
-
-    def start(self, time):
-        self.timer.init(period=time, mode=Timer.PERIODIC,
-                        callback=lambda t:self.checkGas())
-    def stop(self):
-        self.timer.deinit()
-
-
-g = CheckGas(gasLED, gasA, 5000)
+t = machine.Timer(-1)
+gasCheck_start(t, TIMECHECK, gasA, LLINDAR_GAS)
