@@ -34,7 +34,7 @@ def checkGas(sensor, level):
 
 def gasCheck_start(timer, time, sensor, level):
     timer.init(period=time, mode=Timer.PERIODIC,
-                    callback=lambda t:self.checkGas(sensor, level))
+                    callback=lambda t:checkGas(sensor, level))
 def gasCheck_stop(timer):
     timer.deinit()
 
