@@ -1,8 +1,8 @@
 # VW_micropython
 #### Personal project in development
 ### NodeMCU for a camper
-- [] heater control everspacher H2L.    
-- [] gas detection for freezer.    
+- [ ] heater control everspacher H2L.    
+- [ ] gas detection for freezer.    
 
 1- Install esptools to ubuntu:
 
