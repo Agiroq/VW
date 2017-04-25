@@ -1,5 +1,6 @@
-VW_micropython
-NodeMCU for a camper
+# VW_micropython
+#### Personal project in development
+### NodeMCU for a camper
 
 1- Install esptools to ubuntu:
 
